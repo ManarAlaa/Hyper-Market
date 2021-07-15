@@ -1,0 +1,95 @@
+<html>
+<head>
+<style>
+ div{
+  font-family:verdana;
+   direction:  10 % ltr;
+   margin-left: 40px;
+ }
+ .dis{
+  color:red;
+  text-decoration: line-through;
+
+
+
+ }
+ input{
+  font-family:arial;
+  color: white;
+  background-color: black; 
+  margin-left: 35px ;
+  padding: 2px ;
+ }
+
+</style>
+
+ </head>
+ <body>
+    <?php
+    
+
+ $strQuery= "SELECT * FROM products WHERE disAvailability =0 AND  productName LIKE '$search%' ";
+ $res = mysqli_query($mysqlLink, $strQuery);
+if (mysqli_num_rows($res)>0) {
+ while ($data = mysqli_fetch_array($res))
+ {
+  //if ($search  == $data['productName'])
+  {
+    $_SESSION['productN'] = $data['productName'];
+    
+
+    
+
+    ?>
+    
+    <a href="products.html"><img  alt=" " src=" <?php echo $data['img'] ?> "/> </a>
+   <div> <p><?php echo $data['productName']; ?></p> </div>
+    <div> <?php echo $data['discount']; ?> </div>
+       <div  class="dis">   <?php echo  $data['price'];?>  </div>
+       <form class="add" action="" method="post">
+
+      <input type="submit" name="submit"  value="Add to cart" /> 
+  </form>
+  <?php
+}
+ }
+}
+ ?>
+ <?php
+
+  
+   $strQQuery= "SELECT * FROM products WHERE disAvailability =0 AND  productName LIKE '$search%' ";
+ $resQ = mysqli_query($mysqlLink, $strQQuery);
+if (mysqli_num_rows($resQ)>0) {
+ while ($dataQ = mysqli_fetch_array($resQ))
+ {
+  //if ($search  == $dataQ['productName'])
+  {
+    $_SESSION['productN'] = $dataQ['productName'];
+    
+
+    
+
+    ?>
+
+    <a href="products.html"><img  alt=" " src=" <?php echo $dataQ['img'] ?> "/> </a>
+    <div> <p><?php echo $dataQ['productName']; ?></p> </div>
+    <div> <?php echo $dataQ['price']; ?> </div>
+       <form class="add" action="" method="post">
+
+      <input type="submit" name="submit"  value="Add to cart" /> 
+  </form>
+
+  <?php 
+ 
+}}}
+
+if ($search  !=  $_SESSION['productN'])
+
+{
+ echo " Sorry,This Product Isn't Avalible";
+
+}
+ ?>
+ </body>
+</html
